@@ -68,22 +68,20 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
 
     // PDF: PdfiumAndroid (très léger, rapide, sans dependencies)
-    implementation("io.github.javacpp:pdfium:6248@aar")
-    implementation("io.github.javacpp:pdfium-platform:6248:android-arm64@aar")
-    implementation("io.github.javacpp:pdfium-platform:6248:android-armv7@aar")
-    implementation("io.github.javacpp:pdfium-platform:6248:android-x86@aar")
-    implementation("io.github.javacpp:pdfium-platform:6248:android-x86_64@aar")
+    implementation("io.github.javacpp:pdfium:6248:android-arm64@aar")
+    implementation("io.github.javacpp:pdfium:6248:android-armv7@aar")
+    implementation("io.github.javacpp:pdfium:6248:android-x86@aar")
+    implementation("io.github.javacpp:pdfium:6248:android-x86_64@aar")
 
     // Alternative légère pour PDF: MuPDF (peut être utilisé)
     // implementation("com.artifex.mupdf:mupdf:1.23.8")
 
     // EPUB: Readium (optimisé, léger)
-    implementation("org.readium.kotlin-toolkit:readium-shared:2.4.0")
-    implementation("org.readium.kotlin-toolkit:readium-navigator:2.4.0")
+    implementation("org.readium.kotlin-toolkit:readium-shared:3.0.0-beta.1")
+    implementation("org.readium.kotlin-toolkit:readium-navigator:3.0.0-beta.1")
 
-    // XML parsing pour EPUB/MOBI
-    implementation("org.xmlpull:xmlpull:1.1.3.1")
-    implementation("org.xmlpull:xpp3:1.1.4c")
+    // XML parsing
+    implementation("com.fasterxml.woodstox:woodstox-core:6.5.1")
 
     // Kotlin Coroutines (ultra-léger)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
