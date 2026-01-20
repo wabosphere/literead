@@ -1,4 +1,3 @@
 #!/bin/bash
-echo "LiteRead - Android Document Reader"
-echo "Builds are managed via GitHub Actions."
+echo "LiteRead - Android Project Ready for GitHub"
 while true; do sleep 3600; done
