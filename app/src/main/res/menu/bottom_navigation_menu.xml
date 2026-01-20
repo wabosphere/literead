@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/libraryFragment"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/library" />
+
+    <item
+        android:id="@+id/fileExplorerFragment"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/file_explorer" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/aboutFragment"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/about" />
+</menu>

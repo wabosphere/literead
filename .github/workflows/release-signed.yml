@@ -1,0 +1,172 @@
+name: Release with Signing
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+    
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+    
+    - name: Extract version from tag
+      run: |
+        VERSION_TAG=${{ github.ref }}
+        VERSION=${VERSION_TAG#refs/tags/v}
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+    
+    - name: Setup Keystore
+      if: secrets.SIGNING_KEYSTORE_BASE64 != ''
+      env:
+        SIGNING_KEYSTORE: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
+      run: |
+        mkdir -p app/keystore
+        echo $SIGNING_KEYSTORE | base64 -d > app/keystore/literead-release.keystore
+    
+    - name: Build Release APK & AAB (Signed)
+      if: secrets.SIGNING_KEYSTORE_BASE64 != ''
+      env:
+        KEYSTORE_PATH: ${{ github.workspace }}/app/keystore/literead-release.keystore
+        KEYSTORE_PASSWORD: ${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+      run: |
+        ./gradlew bundleRelease assembleRelease \
+          -Dorg.gradle.jvmargs="-Xmx4096m"
+    
+    - name: Build Release APK & AAB (Unsigned)
+      if: secrets.SIGNING_KEYSTORE_BASE64 == ''
+      run: |
+        ./gradlew bundleRelease assembleRelease \
+          -Dorg.gradle.jvmargs="-Xmx4096m"
+    
+    - name: Sign APK with jarsigner
+      if: secrets.SIGNING_KEYSTORE_BASE64 != ''
+      run: |
+        for apk in app/build/outputs/apk/release/*.apk; do
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore app/keystore/literead-release.keystore \
+            -storepass "${{ secrets.SIGNING_KEYSTORE_PASSWORD }}" \
+            -keypass "${{ secrets.SIGNING_KEY_PASSWORD }}" \
+            "$apk" "${{ secrets.SIGNING_KEY_ALIAS }}"
+        done
+    
+    - name: Verify APK Signature
+      if: secrets.SIGNING_KEYSTORE_BASE64 != ''
+      run: |
+        for apk in app/build/outputs/apk/release/*.apk; do
+          jarsigner -verify -verbose "$apk"
+        done
+    
+    - name: Create Release Notes
+      run: |
+        cat > RELEASE_NOTES.md << 'EOF'
+        ## LiteRead v${{ env.VERSION }}
+        
+        ### 🎉 Release Highlights
+        
+        - Ultra-lightweight document reader
+        - Support for PDF, EPUB, TXT, MOBI
+        - 4 beautiful themes (Light, Dark, Sepia, AMOLED)
+        - Fast and reliable performance
+        - Offline-first architecture
+        
+        ### 📥 Downloads
+        
+        **APK Files (Direct Installation):**
+        - `LiteRead-universal-release.apk` - Works on all devices
+        - `LiteRead-arm64-v8a-release.apk` - Modern Android phones (64-bit)
+        - `LiteRead-armeabi-v7a-release.apk` - Older Android phones (32-bit)
+        - `LiteRead-x86-release.apk` - Tablets & Emulators
+        - `LiteRead-x86_64-release.apk` - 64-bit Tablets & Emulators
+        
+        **AAB File (Google Play):**
+        - `LiteRead-release.aab` - For Play Store distribution
+        
+        ### 📋 Requirements
+        - Android 5.0 (API 21) or higher
+        - ~15-20MB disk space
+        - Internet (only for file transfer, not needed for reading)
+        
+        ### 🚀 Installation
+        
+        **Method 1: Direct APK Installation**
+        ```bash
+        adb install LiteRead-universal-release.apk
+        ```
+        
+        **Method 2: Manual Installation**
+        1. Download the appropriate APK file
+        2. Enable "Unknown sources" in Settings
+        3. Open the APK file on your device
+        4. Tap "Install"
+        
+        **Method 3: ADB Installation**
+        1. Connect device via USB
+        2. Enable Developer Mode
+        3. Run: `adb install LiteRead-universal-release.apk`
+        
+        ### ✨ Features
+        
+        ✅ **Multiple Formats**: PDF, EPUB, TXT, MOBI  
+        ✅ **4 Themes**: Light, Dark, Sepia, AMOLED  
+        ✅ **Reading Management**: Bookmarks, history, resume  
+        ✅ **Customization**: Font size, reading mode  
+        ✅ **File Management**: Built-in file explorer  
+        ✅ **Lightweight**: ~10MB APK size  
+        ✅ **Privacy**: No ads, no tracking, no cloud  
+        ✅ **Open Source**: MIT License  
+        
+        ### 🐛 Known Issues
+        
+        - None known for this release
+        
+        ### 📝 Changelog
+        
+        [See CHANGELOG.md for full history]
+        
+        ### 🙏 Thanks
+        
+        Thanks to all contributors and testers!
+        
+        ---
+        
+        **LiteRead** - Making document reading lightweight, fast, and beautiful.
+        
+        For more info, visit: https://github.com/wabosphere/literead
+        EOF
+        cat RELEASE_NOTES.md
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          app/build/outputs/apk/release/*.apk
+          app/build/outputs/bundle/release/*.aab
+        body_path: RELEASE_NOTES.md
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Upload to Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-${{ env.VERSION }}
+        path: |
+          app/build/outputs/apk/release/
+          app/build/outputs/bundle/release/
+        retention-days: 365

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiteRead</string>
+    <string name="app_version">1.0.0</string>
+
+    <!-- Navigation -->
+    <string name="library">Bibliothèque</string>
+    <string name="file_explorer">Explorateur</string>
+    <string name="settings">Paramètres</string>
+    <string name="about">À propos</string>
+
+    <!-- File Explorer -->
+    <string name="select_file">Sélectionner un fichier</string>
+    <string name="no_files">Aucun fichier</string>
+    <string name="files_count">%d fichiers</string>
+    <string name="sort_by_name">Trier par nom</string>
+    <string name="sort_by_date">Trier par date</string>
+    <string name="sort_by_size">Trier par taille</string>
+
+    <!-- Library -->
+    <string name="recent_books">Livres récents</string>
+    <string name="all_books">Tous les livres</string>
+    <string name="empty_library">Bibliothèque vide</string>
+    <string name="add_files">Ajouter des fichiers</string>
+
+    <!-- Reader -->
+    <string name="search">Rechercher</string>
+    <string name="bookmarks">Signets</string>
+    <string name="add_bookmark">Ajouter un signet</string>
+    <string name="remove_bookmark">Supprimer le signet</string>
+    <string name="brightness">Luminosité</string>
+    <string name="reading_mode">Mode lecture</string>
+    <string name="scroll">Défilement</string>
+    <string name="page">Pagination</string>
+
+    <!-- Settings -->
+    <string name="theme">Thème</string>
+    <string name="light_theme">Clair</string>
+    <string name="dark_theme">Sombre</string>
+    <string name="sepia_theme">Sépia</string>
+    <string name="amoled_theme">AMOLED</string>
+    <string name="font_size">Taille police</string>
+    <string name="font_family">Police</string>
+    <string name="small">Petit</string>
+    <string name="medium">Moyen</string>
+    <string name="large">Grand</string>
+    <string name="extra_large">Très grand</string>
+
+    <!-- About -->
+    <string name="app_description">Lecteur de documents ultra-léger, rapide et fiable</string>
+    <string name="copyright">© 2024 LiteRead. Tous droits réservés.</string>
+    <string name="license">Licence MIT</string>
+    <string name="open_source_licenses">Licences open-source</string>
+
+    <!-- Messages -->
+    <string name="file_not_found">Fichier non trouvé</string>
+    <string name="error_opening_file">Erreur lors de l\'ouverture du fichier</string>
+    <string name="unsupported_format">Format non supporté</string>
+    <string name="no_permission">Permission refusée</string>
+    <string name="please_wait">Veuillez patienter…</string>
+</resources>
