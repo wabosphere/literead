@@ -71,8 +71,8 @@ dependencies {
     implementation("com.github.barteksc:pdfium-android:1.9.0")
 
     // EPUB: Readium (v2 stable pour éviter les problèmes de snapshots/auth)
-    implementation("org.readium.kotlin-toolkit:readium-shared:2.4.0")
-    implementation("org.readium.kotlin-toolkit:readium-navigator:2.4.0")
+    implementation("org.readium.kotlin-toolkit:readium-shared:2.3.0")
+    implementation("org.readium.kotlin-toolkit:readium-navigator:2.3.0")
 
     // XML parsing
     implementation("org.ogce:xpp3:1.1.6")
