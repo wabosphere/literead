@@ -2,10 +2,16 @@
 
 -ignorewarnings
 
+# Fix R8 XmlPull conflicts
+-dontwarn org.xmlpull.v1.**
+-dontwarn org.xmlpull.mxp1.**
 -dontwarn org.xmlpull.mxp1_serializer.**
+-keep class org.xmlpull.v1.** { *; }
+-keep class org.xmlpull.mxp1.** { *; }
 -keep class org.xmlpull.mxp1_serializer.** { *; }
 -keep class org.xmlpull.mxp1.MXParser { *; }
 -keep class org.xmlpull.mxp1_serializer.MXSerializer { *; }
+-keep class android.content.res.XmlResourceParser { *; }
 
 # Garder les classes pour la sérialisation
 -keep class com.literead.data.model.** { *; }
@@ -28,14 +34,6 @@
 
 # Koin
 -keep class org.koin.** { *; }
-
-# XML Parsing - XmlPull
--dontwarn org.xmlpull.v1.**
--dontwarn org.xmlpull.mxp1.**
--keep class org.xmlpull.** { *; }
--keep interface org.xmlpull.** { *; }
--keep class org.xmlpull.mxp1.** { *; }
--keep interface org.xmlpull.mxp1.** { *; }
 
 # Android XML
 -keep class android.content.res.** { *; }
