@@ -1,5 +1,12 @@
 # Proguard rules pour LiteRead - minimiser l'APK
 
+-ignorewarnings
+
+-dontwarn org.xmlpull.mxp1_serializer.**
+-keep class org.xmlpull.mxp1_serializer.** { *; }
+-keep class org.xmlpull.mxp1.MXParser { *; }
+-keep class org.xmlpull.mxp1_serializer.MXSerializer { *; }
+
 # Garder les classes pour la sérialisation
 -keep class com.literead.data.model.** { *; }
 -keep class com.literead.data.db.** { *; }
