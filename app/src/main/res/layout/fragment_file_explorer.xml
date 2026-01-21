@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorBackground"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical">
 
     <!-- Toolbar -->
@@ -30,7 +30,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sortByNameBtn"
-                style="@style/Widget.MaterialComponents.OutlinedButton"
+                style="@style/Button.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -38,7 +38,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sortByDateBtn"
-                style="@style/Widget.MaterialComponents.OutlinedButton"
+                style="@style/Button.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -46,7 +46,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sortBySizeBtn"
-                style="@style/Widget.MaterialComponents.OutlinedButton"
+                style="@style/Button.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
