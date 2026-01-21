@@ -66,8 +66,9 @@ class LibraryFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        // Material 3 SearchBar text field access
-        binding.searchBar.editText.addTextChangedListener(object : android.text.TextWatcher {
+        // Correct Material 3 SearchBar access to internal EditText
+        val searchEditText = binding.searchBar.findViewById<android.widget.EditText>(com.google.android.material.R.id.search_bar_text_view)
+        searchEditText?.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.search(s?.toString() ?: "")
