@@ -22,6 +22,20 @@
 # Koin
 -keep class org.koin.** { *; }
 
+# XML Parsing - XmlPull
+-dontwarn org.xmlpull.v1.**
+-dontwarn org.xmlpull.mxp1.**
+-keep class org.xmlpull.** { *; }
+-keep interface org.xmlpull.** { *; }
+-keep class org.xmlpull.mxp1.** { *; }
+-keep interface org.xmlpull.mxp1.** { *; }
+
+# Android XML
+-keep class android.content.res.** { *; }
+
+# Serialization
+-keep class org.ogce.xpp3.** { *; }
+
 # Remove logging
 -assumenosideeffects class android.util.Log {
     public static *** d(...);
