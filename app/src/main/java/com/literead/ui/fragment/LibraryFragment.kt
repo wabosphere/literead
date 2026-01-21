@@ -66,7 +66,7 @@ class LibraryFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        // Correctly access the internal EditText of Material 3 SearchBar
+        // Material 3 SearchBar text field access
         binding.searchBar.editText.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -76,12 +76,19 @@ class LibraryFragment : Fragment() {
         })
 
         binding.addFilesButton.setOnClickListener {
-            // TODO: Ouvrir le file picker
+            // Ouvrir le FileExplorerFragment
+            parentFragmentManager.beginTransaction()
+                .replace(com.literead.R.id.viewPager, FileExplorerFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 
     private fun openDocument(documentId: Long) {
-        // TODO: Démarrer ReaderActivity avec le documentId
+        val intent = android.content.Intent(requireContext(), com.literead.ui.activity.ReaderActivity::class.java).apply {
+            putExtra("document_id", documentId)
+        }
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

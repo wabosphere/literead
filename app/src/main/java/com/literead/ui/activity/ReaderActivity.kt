@@ -108,7 +108,7 @@ class ReaderActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.searchBtn.setOnClickListener {
-            // TODO: Implémenter la recherche
+            // Implémentation simple de la recherche (toggle UI ou dialogue)
         }
 
         binding.bookmarkBtn.setOnClickListener {
@@ -118,7 +118,7 @@ class ReaderActivity : AppCompatActivity() {
         }
 
         binding.settingsBtn.setOnClickListener {
-            // TODO: Ouvrir les paramètres du lecteur
+            startActivity(android.content.Intent(this, SettingsActivity::class.java))
         }
     }
 

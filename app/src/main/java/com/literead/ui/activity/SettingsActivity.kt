@@ -55,20 +55,20 @@ class SettingsActivity : AppCompatActivity() {
         binding.themeGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 binding.lightTheme.id -> {
-                    viewModel.setTheme(ThemeManager.THEME_LIGHT)
-                    ThemeManager.applyTheme(this, ThemeManager.THEME_LIGHT)
+                    viewModel.setTheme(com.literead.theme.ThemeManager.THEME_LIGHT)
+                    com.literead.theme.ThemeManager.applyTheme(this, com.literead.theme.ThemeManager.THEME_LIGHT)
                 }
                 binding.darkTheme.id -> {
-                    viewModel.setTheme(ThemeManager.THEME_DARK)
-                    ThemeManager.applyTheme(this, ThemeManager.THEME_DARK)
+                    viewModel.setTheme(com.literead.theme.ThemeManager.THEME_DARK)
+                    com.literead.theme.ThemeManager.applyTheme(this, com.literead.theme.ThemeManager.THEME_DARK)
                 }
                 binding.sepiaTheme.id -> {
-                    viewModel.setTheme(ThemeManager.THEME_SEPIA)
-                    ThemeManager.applyTheme(this, ThemeManager.THEME_SEPIA)
+                    viewModel.setTheme(com.literead.theme.ThemeManager.THEME_SEPIA)
+                    com.literead.theme.ThemeManager.applyTheme(this, com.literead.theme.ThemeManager.THEME_SEPIA)
                 }
                 binding.amoledTheme.id -> {
-                    viewModel.setTheme(ThemeManager.THEME_AMOLED)
-                    ThemeManager.applyTheme(this, ThemeManager.THEME_AMOLED)
+                    viewModel.setTheme(com.literead.theme.ThemeManager.THEME_AMOLED)
+                    com.literead.theme.ThemeManager.applyTheme(this, com.literead.theme.ThemeManager.THEME_AMOLED)
                 }
             }
         }
@@ -89,8 +89,9 @@ class SettingsActivity : AppCompatActivity() {
         )
 
         // Mode lecture
-        binding.readingModeGroup.setOnCheckedChangeListener { _, _ ->
-            // TODO: Changer le mode de lecture
+        binding.readingModeGroup.setOnCheckedChangeListener { _, checkedId ->
+            val mode = if (checkedId == binding.pageMode.id) "page" else "scroll"
+            viewModel.setReadingMode(mode)
         }
     }
 }

@@ -86,21 +86,27 @@ class ReaderViewModel(
         preferencesManager.savePreferences(preferences)
     }
 
-    fun setTheme(theme: String) {
+    fun setTheme(theme: Int) {
         val current = preferencesManager.getPreferences()
-        preferencesManager.setTheme(theme)
+        preferencesManager.saveTheme(theme)
         _preferences.value = current.copy(theme = theme)
+    }
+
+    fun setReadingMode(mode: String) {
+        val current = preferencesManager.getPreferences()
+        preferencesManager.saveReadingMode(mode)
+        _preferences.value = current.copy(readingMode = mode)
     }
 
     fun setFontSize(size: Int) {
         val current = preferencesManager.getPreferences()
-        preferencesManager.setFontSize(size)
+        preferencesManager.saveFontSize(size)
         _preferences.value = current.copy(fontSize = size)
     }
 
     fun setBrightness(brightness: Float) {
         val current = preferencesManager.getPreferences()
-        preferencesManager.setBrightness(brightness)
+        preferencesManager.saveBrightness(brightness)
         _preferences.value = current.copy(brightness = brightness)
     }
 }
